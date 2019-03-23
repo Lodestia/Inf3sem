@@ -1,0 +1,64 @@
+import javax.swing.text.AttributeSet;
+import java.io.*;
+
+
+public class Interval2 {
+
+
+    // Основные переменные
+    private static String fname = "EURUSD.csv"; //
+    private static  float k[][] = new float[4][4];//
+    private static String d[]=new String[4];// ФИО
+
+    // разделение данных в файле
+    private static final String separator = ";";
+
+    
+    public static void main(String[] args) {
+
+        // Считывает данные с файла
+        ReadCSV();
+
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+
+                }
+
+                System.out.print(d[i] +" "+ k[i][3] + "\t");
+                System.out.println("");
+                //System.out.println(d[i]+ "\t");
+
+            }
+        }
+
+    // прочитать данные с файла
+    public static void ReadCSV() {
+        File file = new File(fname);
+        try(BufferedReader br =
+                    new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));) {
+            String line = "";
+            int i=0;
+            // считывает файлы построчно \n
+            line = br.readLine();
+            while ((line = br.readLine()) != null) {
+
+                String[] elements = line.split(separator);
+d[i]=elements[0];
+                k[i][0]=Float.parseFloat(elements[1]);
+                k[i][1]=Float.parseFloat(elements[2]);
+                k[i][2]=Float.parseFloat(elements[3]);
+                k[i][3]=(k[i][0]+k[i][1]+k[i][2])/3;
+
+                i++;
+            }
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
