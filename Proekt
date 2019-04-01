@@ -1,0 +1,24 @@
+public class Read {
+    private String patternURL = "src\\main\\resources\\Data.docx";
+    private XWPFDocument patternDOCX;
+    private XWPFDocument tablePric;
+    private FileInputStream filePattern;
+    private FileInputStream fileTable;
+
+    public Read() {
+        try {
+            filePattern = new FileInputStream(patternURL);
+            patternDOCX = new XWPFDocument(filePattern);
+            List<XWPFParagraph> paragraphs = patternDOCX.getParagraphs();
+            for (XWPFParagraph p : paragraphs) {
+                System.out.println(p.getText());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
