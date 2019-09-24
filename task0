@@ -62,4 +62,24 @@ class AL {
         shannon_val *= (-1);
         return shannon_val;
     }
+    try {
+            File file = new File("text.txt");
+            FileReader fr = new FileReader(file);
+            BufferedReader reader = new BufferedReader(fr);
+            //String line = reader.readLine();
+            int i = 0;
+            array[i].number = i + 1;
+            array[i].word = reader.readLine();
+            while (array[i].word != null && i < 11) {
+                i++;
+                array[i].number = i + 1;
+                array[i].word = reader.readLine();
+                //  System.out.println(array[i].number+" "+array[i].word);
+
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
