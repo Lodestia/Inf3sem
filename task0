@@ -38,20 +38,7 @@ class AL {
         
 
     }
-    public static int[] get_array(String word, char[] arr, int size){
-        int[] new_arr = new int[size];
-        for(int h = 0; h < size; h++) new_arr[h] = 0;
-        for(int i = 0; i < word.length(); i++){
-            boolean check = false;
-            for(int j = 0; j < size && !check; j++){
-                if(word.charAt(i) == arr[j]){
-                    check = true;
-                    new_arr[j]++;
-                }
-            }
-        }
-        // for(int h = 0; h < size; h++) System.out.println(new_arr[h]);
-        return new_arr;
+    
 
     }
     public static boolean palindrom(String word) {  //// Метод для проверки слова на палиндром
