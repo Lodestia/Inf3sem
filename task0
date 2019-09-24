@@ -1,0 +1,62 @@
+class AL {
+
+    int number;
+    String word;
+    boolean status;
+    int size;
+    double hartley_val;
+    double shannon_val;
+    public class Table {
+
+    public static void sub_show(){
+        for(int i = 0; i < 133;i++){
+            System.out.print("-");
+        }
+    }
+    public static void heading(){
+        System.out.printf("%5s%58s%12s","|","|","|");
+        System.out.printf("%-11s","кол-во");
+        System.out.printf("|");
+        System.out.printf("%15s%14s","байт, размер|","бит,");
+        System.out.printf("|");
+        System.out.printf("%14s","бит,");
+        System.out.println();
+        System.out.printf("%5s%58s","|","|");
+        System.out.printf("%12s%11s","палиндром|","символов");
+        System.out.printf("|");
+        System.out.printf("%-15s%14s","в программе|","по Хартли");
+        System.out.printf("|");
+        System.out.printf("%14s","по Шеннону");
+        System.out.println();
+        sub_show();
+    }
+    public static void show(AL[] array){
+        sub_show();
+        System.out.println();
+        System.out.printf("%-3ss%-57ss%11ss%56s","№","|","слово","|","","|","Количество информации");
+
+        
+
+    }
+    public static boolean palindrom(String word) {  //// Метод для проверки слова на палиндром
+        boolean status = true, check;
+        int size = word.length(); double s_size;
+        if(size % 2 == 0) s_size = size / 2;
+        else s_size = Math.ceil(size / 2);
+        for(int i = 0; i < s_size && status; i++){
+            if(word.charAt(i) != word.charAt(size - 1 - i)) status = false;
+        }
+        check = status;
+        return check;
+    }
+     public static double shannon(String word, int size, int[] new_arr) {
+        double shannon_val = 0;
+        double size_m =  word.length();
+        for(int i = 0; i < size; i++){
+            double p = new_arr[i] / size_m;
+            shannon_val += p * Math.log10(p) / Math.log10(2);
+        }
+        shannon_val *= (-1);
+        return shannon_val;
+    }
+    }
