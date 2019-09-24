@@ -1,0 +1,82 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+import static com.sun.tools.doclint.Entity.*;
+
+
+public class lab1 {
+    public  static  int negative(double[] array){
+        int counter = 0;
+        for(int i = 0; i < 24; i++){
+            System.out.println(array[i]);
+            if(array[i] < 0) counter++;
+        }
+        return counter;
+    }
+    public static double[] tabulate_func(int i){
+        double[] array = new double[24];
+        int j = 0;
+        if(i == 0){
+            for (double x = -2 * Math.PI; x <= 2 * Math.PI; x += Math.PI / 6){
+                System.out.println("x"+(j+1)+"="+x+ "  " +"f"+(j+1)+"="+(2*Math.sin(x)+1));
+                array[j] = 2*Math.sin(x)+1;
+                j++;
+            }
+            System.out.println();
+        }
+        else if(i == 1){
+            for (double x = -2 * Math.PI; x <= 2 * Math.PI; x += Math.PI / 6){
+                System.out.println("x"+(j+1)+"="+x+ "  " +"f"+(j+1)+"="+(Math.pow(x/Math.PI-1,2)));
+                array[j] =  Math.pow(x/Math.PI-1,2);
+                j++;
+            }
+            System.out.println();
+        }
+        else if(i == 2){
+            for (double x = -2 * Math.PI; x <= 2 * Math.PI; x += Math.PI / 6){
+                System.out.println("x"+(j+1)+"="+x+ "  " +"f"+(j+1)+"="+(-Math.pow(x / Math.PI,2)+ (- 2 * x+5*Math.PI)));
+                array[j] =  -Math.pow(x / Math.PI,2)+ (- 2 * x+5*Math.PI);
+                j++;
+            }
+            System.out.println();
+        }
+        else if(i == 3){
+            for (double x = -2 * Math.PI; x <= 2 * Math.PI; x += Math.PI / 6){
+                System.out.println("x"+(j+1)+"="+x+ "  " +"f"+(j+1)+"="+(0.5*Math.pow(Math.cos(x),2)+1));
+                array[j] = 0.5*Math.pow(Math.cos(x),2)+1;
+                j++;
+            }
+            System.out.println();
+        }
+        return array;
+    }
+    ////task2
+    public static void task1_2(){
+        ////1
+        double[][] arr = new double[4][24];
+        for(int i = 0;i < 4; i++){
+            arr[i] = tabulate_func(i);
+        }
+        int count = 0;
+        // A
+        System.out.println("Negatives: "+count);
+        for(int i = 0;i < 4; i++){
+            count += negative(arr[i]);
+            System.out.println(i+") "+negative(arr[i]));
+        }
+        System.out.println("The total negatives are "+count);
+        // B
+        Scanner scanner= new Scanner(System.in);
+        System.out.println("Enter the number n");
+        int n = scanner.nextInt();
+        ArrayList<Double> xArray = new ArrayList<Double>();
+
+
+        for(int i = 0; i < n; i++){
+
+            xArray.add((Math.random() * ((10 - (-10)) + 1)) + (-10));/// изменить интервал!!!
+            System.out.println(xArray.get(i));
+        }
+    }
+    public static void main(String[] args) {
+        task1_2();
+    }}
