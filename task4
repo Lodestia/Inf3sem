@@ -1,0 +1,196 @@
+public class Main {
+    public static void main(String[] args) {
+        ArrayList<Double> list= new ArrayList<>();
+        Scanner input= new Scanner(System.in);
+        String line= input.nextLine();
+        System.out.println(line);
+        input.close();
+       // Pattern pattern= Pattern.compile("\\d+");
+        Pattern pattern= Pattern.compile("\\d+\\.\\d+");
+        Matcher matcher = pattern.matcher(line);
+        while(matcher.find()){
+            list.add(Double.parseDouble(matcher.group()));
+        }
+
+
+        System.out.println(list.toString());
+        double sum = 0, max = 0;
+
+            for(int i = 0; i < list.size(); i++){
+                if(i == 0) max = list.get(i);
+                else {
+                    if(max < list.get(i)) max = list.get(i);
+                }
+
+                sum += list.get(i);
+            }
+            System.out.println("max: "+max);
+        System.out.println("sum: "+sum);
+
+    }}
+public class Task4 {
+    public static void main(String[] args) {
+    //1г
+       /* ArrayList<String> lis= new ArrayList<>();
+        Scanner in= new Scanner(System.in);
+        String line= in.nextLine();
+        System.out.println(line);
+        in.close();
+        // Pattern pattern= Pattern.compile("\\d+");
+        line = line.replaceAll("[a-zA-Z]{10,}","*");
+        System.out.println(line);
+        Pattern pattern= Pattern.compile("[a-zA-Z]");
+        Matcher matcher = pattern.matcher(line);
+        while(matcher.find()){
+            lis.add(matcher.group());
+        }
+        System.out.println(lis.toString());
+        String new_word = "";
+        for(int i = 0; i < lis.size(); i++){
+            if(lis.get(i).length() >= 10){
+                lis.set(i, "*");
+            }
+
+        }
+        System.out.println(lis.toString());*/
+        //1д
+       /* ArrayList<String> array= new ArrayList<>();
+        Scanner input= new Scanner(System.in);
+        String line1= input.nextLine();
+        //System.out.println(line1);
+        input.close();
+
+        Pattern pattern1= Pattern.compile("[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}");
+        Matcher matcher1 = pattern1.matcher(line1);
+
+        if (matcher1.find())
+            System.out.println("Y");
+            else
+            System.out.println("N");*/
+
+//1е
+       /* Scanner input= new Scanner(System.in);
+        String line1= input.nextLine();
+        //System.out.println(line1);
+        input.close();
+
+        Pattern pattern1= Pattern.compile("#[0-9Ff]{6}");
+        Matcher matcher1 = pattern1.matcher(line1);
+
+        if (matcher1.find())
+            System.out.println("Y");
+        else
+            System.out.println("N");*/
+            //1
+        /*ArrayList<String> lis= new ArrayList<>();
+        Scanner in= new Scanner(System.in);
+        String line= in.nextLine();
+        System.out.println(line);
+        in.close();
+
+        Pattern pattern= Pattern.compile("^[a-zA-Z][\\\\]$");
+        Matcher matcher = pattern.matcher(line);
+        while(matcher.find()){
+            lis.add(matcher.group());
+        }
+        
+        System.out.println(lis.toString());*/
+        \\1и
+        /*Scanner in = new Scanner (System.in);
+        String source, delete;
+        source = in.nextLine();
+        delete = in.nextLine();
+        source = source.replace (delete, "");
+        System.out.println (source);*/
+       // Scanner input= new Scanner(System.in);
+        /*String line1= input.nextLine();
+        input.close();
+
+        Pattern pattern1= Pattern.compile("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$");
+        Matcher matcher1 = pattern1.matcher(line1);
+
+        if (matcher1.find())
+            System.out.println("Y");
+        else
+            System.out.println("N");*/
+            
+        /*Scanner input= new Scanner(System.in);
+        String line1= input.nextLine();
+        input.close();
+
+        Pattern pattern1= Pattern.compile("[.\\-_a-z0-9]+@([a-z0-9][\\-a-z0-9]+\\.)+[a-z]{2,6}");
+        Matcher matcher1 = pattern1.matcher(line1);
+
+        if (matcher1.find())
+            System.out.println("Y");
+        else
+            System.out.println("N");*/
+        /*Scanner input= new Scanner(System.in);
+        String line1= input.nextLine();
+        input.close();
+
+        Pattern pattern1= Pattern.compile("^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
+        Matcher matcher1 = pattern1.matcher(line1);
+
+        if (matcher1.find())
+            System.out.println("Y");
+        else
+            System.out.println("N");*/
+        /*Scanner input= new Scanner(System.in);
+        String line1= input.nextLine();
+        input.close();
+
+        String d30 = "(0[1-9]|1[1-9]|2[1-9]|30)";
+        String d31 = "(0[1-9]|1[1-9]|2[1-9]|3[0-1])";
+        String d28 = "(0[1-9]|1[1-9]|2[1-8])";
+        String d29 = "(0[1-9]|1[1-9]|2[1-9])";
+        String m0 = "(0[4,6,9]|11)";
+        String m1 = "(0[1,3,5,7,8]|1[0,2])";
+        String m2 = "(02)";
+        String y2 = "((1[6-9][0,2,4,6,8][0,4,8])|(1[6-9][1,3,5,7,9][2,6])|([2-9][0-9][0,2,4,6,8][0,4,8])|([2-9][0-9][1,3,5,7,9][2,6]))";
+        String y0 = "((1[6-9][0,2,4,6,8][1-3,5-7])|(1[6-9][1,3,5,7,9][0,1,3-5,7-9])|([2-9][0-9][0,2,4,6,8][1-3,5-7])|([2-9][0-9][1,3,5,7,9][0,1,3-5,7-9]))";
+        Pattern pattern1= Pattern.compile("^("+d30+"/"+m0+"/"+y0+")|("+d31+"/"+m1+"/"+y0+")|("+d29+"/"+m2+"/"+y2+")|("+d28+"/"+m2+"/"+y0+")$");
+        Matcher matcher1 = pattern1.matcher(line1);
+
+        if (matcher1.find())
+            System.out.println("Y");
+        else
+            System.out.println("N");*/
+        /*Scanner input= new Scanner(System.in);
+        String line1= input.nextLine();
+        input.close();
+
+        Pattern pattern1= Pattern.compile("^[1-9]\\d{5}$");
+        Matcher matcher1 = pattern1.matcher(line1);
+
+        if (matcher1.find())
+            System.out.println("Y");
+        else
+            System.out.println("N");*/
+        /*Scanner input= new Scanner(System.in);
+        String line1= input.nextLine();
+        input.close();
+
+        Pattern pattern1= Pattern.compile("[0-9]+[ ]*[+]");
+        Matcher matcher1 = pattern1.matcher(line1);
+
+        if (matcher1.find())
+            System.out.println("Y");
+        else
+            System.out.println("N");*/
+        Scanner input= new Scanner(System.in);
+        String line1= input.nextLine();
+        input.close();
+
+        Pattern pattern1= Pattern.compile("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9@#$%]).{8,}");
+        Matcher matcher1 = pattern1.matcher(line1);
+
+        if (matcher1.find())
+            System.out.println("Y");
+        else
+            System.out.println("N");
+
+
+    }
+
+    }
