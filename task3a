@@ -1,0 +1,88 @@
+import org.w3c.dom.*;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import java.io.IOException;
+
+public class Read {
+    public static void readAndPrintXML() {
+        // DOM parser - загружает весь xml-файл в память; ! для небольших документов
+        try {
+            // Создать построитель документа
+            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+
+            // из файла Создать объект документа для обхода дерева DOM документа
+            Document document = builder.parse("text.xml");
+
+            // Получить корневой элемент
+            Node root = document.getDocumentElement();
+
+
+            // Просматриваем все подэлементы корневого - т.е. контакты
+            NodeList contacts = root.getChildNodes();
+            for (int i = 0; i < contacts.getLength(); i++) {
+                Node pers = contacts.item(i);
+                // Если узел не текст, то заходим внутрь
+                if (pers instanceof Element) {                    //.getNodeType() != Node.TEXT_NODE) {
+                    NodeList persProps = pers.getChildNodes();
+                    for(int j = 0; j < persProps.getLength(); j++) {
+                        Node persProp = persProps.item(j);
+                        // Если нода не текст, то это один из параметров книги - печатаем
+                        if (persProp.getNodeType() != Node.TEXT_NODE) {
+                            System.out.println(persProp.getNodeName() + ":" + persProp.getChildNodes().item(0).getTextContent());
+                        }
+                    }
+                    NamedNodeMap attr = pers.getAttributes();                                 //System.out.println(attr.getNamedItem("type").getNodeValue());
+                    for (int j = 0; j <attr.getLength() ; j++) {
+                        Node a = attr.item(j);
+                        System.out.println(a.getNodeName() + " = " + a.getNodeValue());
+                    }
+                    System.out.println("===========>>>>");
+                }
+            }
+
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
+
+
+    public static void main(String[] args) {
+
+        readAndPrintXML();
+    }
+}
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+
+<book author ="А.С.Пушкин">
+
+    <title>Руслан и Людмила</title>
+   <pages> 150</pages>
+    <title>Сказка о рыбаке и рыбке </title>
+    <pages> 25 </pages>
+
+</book>
+    <book author ="Л.Н.Толстой">
+        <title>Война и мир </title>
+        <pages> 1000</pages>
+        <title>Анна Каренина</title>
+        <pages> 700</pages>
+
+    </book>
+    <book author ="Е.Замятин">
+        <title>Мы</title>
+        <pages> 300</pages>
+    </book>
+        </root>
