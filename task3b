@@ -1,0 +1,373 @@
+import java.io.File;
+import java.io.IOException;
+ import java.util.ArrayList;
+ import java.util.List;
+ import java.util.Scanner;
+ import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+ class ReadDOM {
+     public void inputAthlete() {
+         String name;
+         String birtday;
+         String gender;
+         List<Event> eventList = new ArrayList<>();
+
+         Scanner scanner = new Scanner(System.in);
+         System.out.print("Введите имя спортсмена:");
+         name = scanner.next();
+         System.out.print("Введите дату рождения cпортсмена (гггг-мм-дд): ");
+         birtday = scanner.next();
+         while (true){
+             System.out.print("Введите пол (м/ж): ");
+             gender = scanner.next();
+             if (gender.equals("м")||gender.equals("ж")){
+                 break;
+             }
+         }
+         while (true) {
+             System.out.println("Хотите добавить соревнования спортсмену? (да/нет)");
+             String fl = scanner.next();
+             if (fl.equals("да")) {
+                 String place;
+                 int year;
+                 int resoult;
+                 String award;
+
+                 System.out.print("Введите место проведения соревнования: ");
+                 place=scanner.next().toLowerCase();
+                 while (true){
+                     System.out.print("Введите год проведения соревнования: ");
+                     String yearString=scanner.next();
+                     if (isNumber(yearString)){
+                         year=Integer.parseInt(yearString);
+                         break;
+                     }
+                 }
+                 while (true){
+                     System.out.print("Введите результат спортсмена на соревнованиях: ");
+                     String resoultString=scanner.next();
+                     if (isNumber(resoultString)){
+                         resoult=Integer.parseInt(resoultString);
+                         break;
+                     }
+                 }
+                 System.out.print("Введите полученную медаль на соревнованиях (gold/silver/bronze/no medals): ");
+                 award=scanner.next();
+
+                 Event event=new Event();
+                 event.setPlace(place);
+                 event.setYear(year);
+                 event.setAward(award);
+                 event.setResult(resoult);
+                 eventList.add(event);
+             } else if (fl.equals("нет")) {
+                 break;
+             } else {
+                 continue;
+             }
+         }
+         Sport athlete=new Sport();
+         athlete.setName(name);
+         athlete.setBirthday(birtday);
+         athlete.setGender(gender);
+         athlete.setEventList(eventList);
+         System.out.println(athlete.toString());
+     }
+
+     private boolean isNumber(String s){
+         try{
+             Integer.parseInt(s);
+             return true;
+         }catch (NumberFormatException e){
+             return false;
+         }
+     }
+     public List<Sport> getAthleteList() {
+         return sportList;
+     }
+
+     private List<Sport> sportList = null;
+     private static final String FILENAME = "sport.xml";
+
+     public void pars() {
+             sportList = new ArrayList<>();
+         try {
+             // Cтpoиm oбъekтнyю moдeль иcхoднoгo XML фaйлa
+             final File xmlFile = new File(System.getProperty("user.dir") + File.separator + FILENAME);
+             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+             DocumentBuilder db = dbf.newDocumentBuilder();
+             Document doc = db.parse(xmlFile);
+             // Выпoлнять нopmaлизaцию нe oбязaтeльнo, нo pekomeндyeтcя
+             doc.getDocumentElement().normalize();
+             System.out.println("Kopнeвoй элemeнт: " + doc.getDocumentElement().getNodeName());
+             System.out.println("============================");
+             // Пoлyчaem вce yзлы c иmeнem "staff"
+             NodeList nodeList = doc.getElementsByTagName("sportsman");
+
+             for (int i = 0; i < nodeList.getLength(); i++) {
+                 Node node = nodeList.item(i);
+                 System.out.println();
+                 if (Node.ELEMENT_NODE == node.getNodeType()) {
+                     Element element = (Element) node;
+                     System.out.println("Имя спортсмена " + element.getAttribute("name"));
+                     System.out.println("День рождение " + element.getAttribute("birthday"));
+                     System.out.println("Пол " + element.getAttribute("s"));
+                     List<Event> events = new ArrayList<>();
+
+
+
+                     NodeList nodList = node.getChildNodes();
+                     for (int j = 0; j < nodList.getLength(); j++) {
+                         Node nod = nodList.item(j);
+                         System.out.println();
+                         if (Node.ELEMENT_NODE == nod.getNodeType()) {
+                             Element elemen = (Element) nod;
+
+                             System.out.println("город " + elemen.getAttribute("place"));
+                             System.out.println("Год " + elemen.getAttribute("year"));
+                             System.out.println("результат " + elemen.getElementsByTagName("result").item(0).getTextContent());
+                             System.out.println("место " + elemen.getElementsByTagName("award").item(0).getTextContent());
+
+
+                         }
+                     }
+
+                 }
+             }
+         }
+
+
+
+        catch (ParserConfigurationException | SAXException
+                | IOException ex) {
+            Logger.getLogger(ReadDOM.class.getName()).log(Level.SEVERE, null, ex);
+
+
+}}
+     public void outA() {
+         for (Sport a : this.sportList) {
+             if (a.getGender().equals("м")) {
+                 System.out.println("Name: " + a.getName() + "\nBirthday:" + a.getBirthday() + "\n");
+             }
+         }
+     }
+
+     public void outB() {
+         for (Sport a : sportList) {
+             if (a.getGender().equals("ж") && yearBirthday(a.getBirthday()) > 1985) {
+                 System.out.println("Name: " + a.getName() + "\nBirthday: " + a.getBirthday() + "\nMedals:\n" + numberOfMEdals(a.getEventList()) + "\n");
+             }
+         }
+     }
+
+     public void outC() {
+         for (Sport a : sportList) {
+
+             boolean flag = false;
+             Event event = null;
+             for (Event e :a.getEventList()) {
+                 if (e.getPlace().equals("москва") && e.getYear() == 2002) {
+                     event = e;
+                     flag = true;
+                 }
+             }
+             if (flag) {
+                 System.out.println("Name: " + a.getName() + "\nResoult: " + event.getResult());
+             }
+         }
+     }
+     private String numberOfMEdals(List<Event> events) {
+         int gold = 0;
+         int silver = 0;
+         int brinze = 0;
+         for (Event e : events) {
+             switch (e.getAward()) {
+                 case "gold":
+                     gold++;
+                     break;
+                 case "silver":
+                     silver++;
+                     break;
+                 case "bronze":
+                     brinze++;
+                     break;
+             }
+         }
+         return "    Gold: " + gold + "\n    Silver: " + silver + "\n    Bronze: " + brinze;
+     }
+     private int yearBirthday(String str) {
+         String[] s = str.split("-");
+         return Integer.parseInt(s[0]);
+     }
+
+
+
+public class Sport {
+    private String name;
+    private String birthday;
+    private boolean gender;
+    private List<Integer> events;
+    public void setProducts(List<Integer> events) {
+        this.events = events;
+    }
+
+    private List<Event> eventList = null;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getGender() {
+        return gender ? "м" : "ж";
+    }
+    public void setEventList(List<Event> eventList) {
+        this.eventList = eventList;
+    }
+    public List<Event> getEventList() {
+        return eventList;
+    }
+
+    public void setGender(String gen) {
+        if (gen.equals("м")) {
+            this.gender = true;
+        } else if (gen.equals('ж')) {
+            this.gender = false;
+        }
+    }}
+
+public class Event {
+    private String place;
+    private int year;
+    private int result;
+    private String award;
+    private List<Event> eventList = null;
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public String getAward() {
+        return award;
+    }
+
+    public void setAward(String award) {
+        this.award = award;
+    }
+
+    public int getResult() {
+        return result;
+    }
+
+    public void setResult(int result) {
+        this.result = result;
+    }
+    public List<Event> getEventList() {
+        return eventList;
+    }
+
+    public void setEventList(List<Event> eventList) {
+        this.eventList = eventList;
+    }
+
+    public void addEvent(Event event) {
+        if (eventList == null) {
+            eventList = new ArrayList<>();
+        }
+        this.eventList.add(event);
+    }
+
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "place='" + place + '\'' +
+                ", year=" + year +
+                ", result=" + result +
+                ", award='" + award + '\'' +
+                '}';
+    }
+}
+
+<?xml version="1.0" encoding="UTF-8"?>
+<team>
+
+    <sportsman name="vasya" birthday="1987-12-13" s="m">
+         <event place="казань" year="2003">
+                 <result>200</result>
+    <award>gold</award>
+         </event>
+    <event place="москва" year="2002">
+        <result>180</result>
+        <award>silver</award>
+    </event>
+    </sportsman>
+    <sportsman name="kolya" birthday="1985-01-13" s="m">
+        <event place="казань" year="2003">
+            <result>160</result>
+            <award>bronze</award>
+        </event>
+
+    </sportsman>
+    <sportsman name="shura" birthday="1982-02-13" s="w">
+        <event place="киев" year="2003">
+            <result>160</result>
+            <award>bronze</award>
+        </event>
+        <event place="москва" year="2002">
+            <result>200</result>
+            <award>gold</award>
+        </event>
+    </sportsman>
+    <sportsman name="kate" birthday="2000-01-12" s="w">
+        <event place="нижнекамск" year="2010">
+            <result>160</result>
+            <award>bronze</award>
+        </event>
+        <event place="Альметьевск" year="2011">
+            <result>200</result>
+            <award>gold</award>
+        </event>
+    </sportsman>
+    <sportsman name="petya" birthday="2001-01-12" s="m">
+        <event place="Бугульма" year="2015">
+            <result>200</result>
+            <award>gold</award>
+        </event>
+        <event place="минск" year="2017">
+            <result>180</result>
+            <award>silver</award>
+        </event>
+    </sportsman>
+</team>
