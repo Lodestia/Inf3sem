@@ -1,0 +1,76 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+
+public class SQL {
+
+
+    private static final String url = "jdbc:mysql://localhost:3306/db?serverTimezone=Europe/Moscow&useSSL=false";
+    private static final String user = "root";
+    private static final String password = "rf56tg65";
+
+    
+    private static Connection con;
+    private static Statement stmt;
+    private static ResultSet rs;
+
+    public static void main(String args[]) {
+        Scanner input = new Scanner(System.in);
+        String query = "select * from organization";
+
+        try {
+
+         
+            con = DriverManager.getConnection(url, user, password);
+
+        
+            stmt = con.createStatement();
+
+         
+            rs = stmt.executeQuery(query);//действия
+
+
+
+
+
+           
+            Statement statement = con.createStatement();
+           statement.executeUpdate("INSERT INTO organization ( ID, Name , Country, City, Adress, " +
+                    "Tel,Email ) VALUES (7, 'ООО Шуба', 'Russia', 'Cheboksary', 'ул.Петрова, д.4','237-89-08'," +
+                    "'mex@mail.ru') ");
+            System.out.println("Введите имя, страну, город, адрес, номер и email");
+            String sqlCommand = "INSERT INTO organization (Name, Country, City, Adress, Tel, Email) VALUES ('" + input.nextLine() + "', '" + input.nextLine() + "', '" + input.nextLine()
+                    + "', '" + input.nextLine() + "','" + input.nextLine() + "','" + input.nextLine() + "') ";
+            statement.executeUpdate(sqlCommand);
+            statement.executeUpdate("UPDATE organization " +
+                    "SET Name = 'ОАО КМЗ',Country = 'Россия' ,City='Курган'" +
+                    "WHERE id =3 ;");
+            statement.executeUpdate("DELETE FROM organization Where ID = 5;");
+
+        input.close();
+            rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                System.out.println("Код_клиента:" + rs.getString("ID")+
+                        "\t\t" + "Имя:" + rs.getString("Name") +
+
+                        "\t\t" + "Страна:" + rs.getString("Country") +
+                        "\t\t" + "Город:" + rs.getString("City") +
+                        "\t\t" + "Aдресс:" + rs.getString("Adress") +
+                        "\t\t" + "Телефон:" + rs.getString("Tel") +
+                        "\t\t" + "Электронная_почта:" + rs.getString("Email"));
+            }
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        } finally {
+            //close connection ,stmt and resultset here
+            try { con.close(); } catch(SQLException se) {  }
+            try { stmt.close(); } catch(SQLException se) { }
+            try { rs.close(); } catch(SQLException se) {  }
+        }
+    }
+
+}
