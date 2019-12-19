@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<?import javafx.scene.text.Font?>
+<GridPane alignment="center" hgap="10" vgap="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="sample.Controller">
+    <children>
+        <Button fx:id="paint" layoutX="294.0" layoutY="350.0" mnemonicParsing="false" onAction="#click" prefHeight="36.0" prefWidth="92.0" text="Рисовать">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Button>
+        <Canvas height="292.0" layoutX="27.0" layoutY="54.0" width="346.0" />
+        <ComboBox layoutX="301.0" layoutY="14.0" prefHeight="25.0" prefWidth="85.0" promptText="Рисуем" fx:id="value">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Прямоугольник"/>
+                    <String fx:value="Овал"/>
+                    <String fx:value="Треугольник"/>
+                    <String fx:value="Прямоугольник незакрашенный"/>
+                    <String fx:value="Овал незакрашенный"/>
+                    <String fx:value="Треугольник незакрашенный"/>
+                    <String fx:value="Линия"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+    </children>
+
+</GridPane>
